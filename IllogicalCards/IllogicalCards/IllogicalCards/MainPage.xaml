@@ -1,16 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="IllogicalCards.MainPage" BackgroundColor="Black">
+             x:Class="IllogicalCards.MainPage">
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center">
             <Label Text="Illogical Cards"
                    FontAttributes="Bold"
                    FontSize="80"
-                   TextColor="WhiteSmoke"
                    HorizontalOptions="CenterAndExpand" />
+            <TableView Intent="Form">
+                <TableRoot>
+                    <TableSection>
+                        <EntryCell x:Name="NickEntry" Label="Nick:" Placeholder="x-person" />
+                    </TableSection>
+                </TableRoot>
+            </TableView>
             <Button x:Name="JoinButton" Margin="8" HeightRequest="70" FontSize="Large" Text="Join game" />
-            <Button x:Name="HostButton" Margin="8" HeightRequest="70" FontSize="Large" Text="Host game" />
+            <Button x:Name="HostButton" Margin="8" HeightRequest="70" FontSize="Large" Text="Host game" Clicked="HostButton_Clicked" />
             <Button x:Name="EditButton" Margin="8" HeightRequest="70" FontSize="Large" Text="Edit card sets" />
         </StackLayout>
     </ContentPage.Content>

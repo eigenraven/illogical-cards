@@ -16,5 +16,10 @@ namespace IllogicalCards
         {
             InitializeComponent();
         }
+
+        public void HostButton_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new GamePage(), true);
+        }
     }
 }
