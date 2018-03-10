@@ -1,6 +1,9 @@
 
 # Created by https://www.gitignore.io/api/linux,macos,windows,android,intellij,androidstudio
 
+node_modules
+package-lock.json
+
 ### Android ###
 # Built application files
 *.apk
