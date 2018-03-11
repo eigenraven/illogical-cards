@@ -1,0 +1,48 @@
+﻿{
+  "name": "Sample cardset",
+  "version": 1
+}
+{
+  "kind": "question",
+  "text": "Q1"
+}
+{
+  "kind": "question",
+  "text": "Q2: __ + ___ = ____"
+}
+{
+  "kind": "question",
+  "text": "_ Q3 _"
+}
+{
+  "kind": "question",
+  "text": "Q4"
+}
+{
+  "kind": "question",
+  "text": "Q5"
+}
+{
+  "kind": "answer",
+  "text": "A1"
+}
+{
+  "kind": "answer",
+  "text": "A2"
+}
+{
+  "kind": "answer",
+  "text": "A3"
+}
+{
+  "kind": "answer",
+  "text": "A4"
+}
+{
+  "kind": "answer",
+  "text": "A5"
+}
+{
+  "kind": "answer",
+  "text": "A6"
+}

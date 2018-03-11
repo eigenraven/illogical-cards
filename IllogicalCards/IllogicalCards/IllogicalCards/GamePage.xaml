@@ -1,12 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="IllogicalCards.GamePage">
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+             x:Class="IllogicalCards.GamePage"
+             Title="Illogical Cards Game">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Updating to Windows 10..."
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <skia:SKCanvasView PaintSurface="CanvasView_PaintSurface">
+            <skia:SKCanvasView.GestureRecognizers>
+                <TapGestureRecognizer />
+            </skia:SKCanvasView.GestureRecognizers>
+        </skia:SKCanvasView>
     </ContentPage.Content>
 </ContentPage>

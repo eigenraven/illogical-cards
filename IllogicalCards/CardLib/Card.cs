@@ -43,6 +43,8 @@
                     }
                 }
                 _text = value;
+                if (BlanksCount == 0)
+                    BlanksCount = 1;
             }
         }
 
@@ -51,5 +53,8 @@
         /// Number of blanks in the text.
         /// </summary>
         public int BlanksCount;
+
+        public Card()
+        {}
     }
 }
