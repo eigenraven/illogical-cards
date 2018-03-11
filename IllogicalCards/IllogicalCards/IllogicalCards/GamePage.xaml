@@ -5,10 +5,10 @@
              x:Class="IllogicalCards.GamePage"
              Title="Illogical Cards Game">
     <ContentPage.Content>
-        <skia:SKCanvasView PaintSurface="CanvasView_PaintSurface">
+        <skia:SKCanvasView x:Name="CanvasView" PaintSurface="CanvasView_PaintSurface">
             <skia:SKCanvasView.GestureRecognizers>
                 <TapGestureRecognizer />
-                <PanGestureRecognizer />
+                <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated" />
             </skia:SKCanvasView.GestureRecognizers>
         </skia:SKCanvasView>
     </ContentPage.Content>

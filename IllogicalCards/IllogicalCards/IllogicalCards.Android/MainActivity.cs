@@ -18,6 +18,7 @@ namespace IllogicalCards.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(bundle);
+            this.Window.AddFlags(WindowManagerFlags.Fullscreen);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App());

@@ -18,7 +18,8 @@ namespace IllogicalCards
 	public partial class GamePage : ContentPage
 	{
         CardGame cg;
-        float handSlide = 0.0f;
+        float HandSlide = 0.0f;
+        SKRect CardsRegion;
 
 		public GamePage (string nick)
 		{
@@ -30,22 +31,70 @@ namespace IllogicalCards
             List<CardSet> sets = new List<CardSet>();
             sets.Add(cs1);
             cg = new CardGame(nick, sets);
-		}
+            HandSlide = 4.0f;
+        }
+
+        delegate void del(int i);
 
         public void CanvasView_PaintSurface(object sender, SKPaintSurfaceEventArgs pse)
         {
             SKSurface surf = pse.Surface;
             SKCanvas cv = surf.Canvas;
             SKImageInfo ii = pse.Info;
+            cv.Clear(SKColors.White);
             float w = ii.Width;
             float h = ii.Height;
-            cv.Scale(h / 400.0f);
-            cv.Translate(20.0f, 20.0f);
-            Rendering.DrawCard(cv, cg.AllBlackCards[0]);
-            cv.ResetMatrix();
-            cv.Scale(h / 400.0f);
-            cv.Translate(20.0f, 220.0f);
-            Rendering.DrawCard(cv, cg.AllWhiteCards[0]);
+            float sc = Math.Min(w, h) / 440.0f;
+            if (cg.Phase == GamePhase.Choosing)
+            {
+                // draw hand
+                int midcard = (int) Math.Round(HandSlide);
+                float midscr = w / 2;
+                del fn = (i) => {
+                    cv.ResetMatrix();
+                    float relidx = i - HandSlide;
+                    relidx /= cg.Me.Hand.Count;
+                    relidx *= 2; // [-1; 1] range
+                    float csc = h / 700.0f * 1.3f * (1.0f - Math.Abs(relidx));
+                    csc = Math.Max(csc, 0.01f);
+                    cv.Translate(midscr + sc * (midscr / 3.0f) * (float)Math.Pow(Math.Abs(relidx), 0.33) * Math.Sign(relidx), h - sc * 150.0f);
+                    cv.Scale(csc);
+                    cv.Translate(-51.5f, -51.5f);
+                    Rendering.DrawCard(cv, cg.Me.Hand[i]);
+                };
+                for (int i = 0; i < midcard; i++)
+                {
+                    fn(i);
+                }
+                for (int i = cg.Me.Hand.Count-1; i > midcard; i--)
+                {
+                    fn(i);
+                }
+                fn(midcard);
+            }
+        }
+
+        static float lastpan = 0.0f;
+
+        private void PanGestureRecognizer_PanUpdated(object sender, PanUpdatedEventArgs e)
+        {
+            switch(e.StatusType)
+            {
+                case GestureStatus.Started:
+                    lastpan = 0.0f;
+                    break;
+                case GestureStatus.Running:
+                    HandSlide -= (float)(e.TotalX - lastpan) / 700.0f;
+                    HandSlide = Math.Min(Math.Max(HandSlide, -0.4f), cg.Me.Hand.Count - 0.6f);
+                    CanvasView.InvalidateSurface();
+                    break;
+                case GestureStatus.Canceled:
+                case GestureStatus.Completed:
+                    Animation zeroOut = new Animation(x => { HandSlide = (float)x; CanvasView.InvalidateSurface(); }, HandSlide, Math.Round(HandSlide), Easing.CubicOut);
+                    zeroOut.Commit(this, "cardZeroOut");
+                    break;
+            }
+            
         }
     }
 }
