@@ -55,9 +55,9 @@ namespace IllogicalCards
                     float relidx = i - HandSlide;
                     relidx /= cg.Me.Hand.Count;
                     relidx *= 2; // [-1; 1] range
-                    float csc = h / 700.0f * 1.3f * (1.0f - Math.Abs(relidx));
+                    float csc = h / 400.0f * 1.3f * (1.0f - Math.Abs(relidx));
                     csc = Math.Max(csc, 0.01f);
-                    cv.Translate(midscr + sc * (midscr / 3.0f) * (float)Math.Pow(Math.Abs(relidx), 0.33) * Math.Sign(relidx), h - sc * 150.0f);
+                    cv.Translate(midscr + sc * ((w<h)?(midscr / 1.2f):(midscr * 0.75f)) * (float)Math.Pow(Math.Abs(relidx)*0.8f, 0.5) * Math.Sign(relidx), h - sc * 150.0f);
                     cv.Scale(csc);
                     cv.Translate(-51.5f, -51.5f);
                     Rendering.DrawCard(cv, cg.Me.Hand[i]);
@@ -71,6 +71,12 @@ namespace IllogicalCards
                     fn(i);
                 }
                 fn(midcard);
+                // Question card
+                cv.ResetMatrix();
+                sc *= 1.5f;
+                cv.Scale(sc);
+                cv.Translate(midscr/sc - 51.5f, 20.0f/sc);
+                Rendering.DrawCard(cv, cg.AllBlackCards[0]);
             }
         }
 
@@ -84,7 +90,10 @@ namespace IllogicalCards
                     lastpan = 0.0f;
                     break;
                 case GestureStatus.Running:
-                    HandSlide -= (float)(e.TotalX - lastpan) / 700.0f;
+                    float dx = (float)(e.TotalX - lastpan) / 440.0f;
+                    dx = Math.Sign(dx) * (float) Math.Pow(Math.Abs(dx), Math.Max(0.3f, 1.0f-Math.Abs(e.TotalX)/600.0f));
+                    HandSlide -= dx;
+                    lastpan = (float)e.TotalX;
                     HandSlide = Math.Min(Math.Max(HandSlide, -0.4f), cg.Me.Hand.Count - 0.6f);
                     CanvasView.InvalidateSurface();
                     break;
