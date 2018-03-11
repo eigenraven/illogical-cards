@@ -175,5 +175,10 @@ namespace CardLib
                 jw.WriteEndObject();
             }
         }
+
+        static public String[] ScanAllSets()
+        {
+            return Directory.GetFiles(".", ".json");
+        }
     }
 }
