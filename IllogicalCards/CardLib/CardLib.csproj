@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="SampleCards.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="SampleCards.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
   </ItemGroup>
 

@@ -33,12 +33,35 @@ namespace CardLib
         /// </summary>
         public List<Card> BlackCardsAvailable;
         
-        public CardGame(string nickname)
+        public CardGame(string nickname, IEnumerable<CardSet> loadedSets)
         {
             Player p = new Player();
             p.Connected = true;
             p.Connection = new LocalConnection();
             p.Nickname = nickname;
+            Players = new List<Player>();
+            Players.Add(p);
+            AllWhiteCards = new List<Card>();
+            AllBlackCards = new List<Card>();
+            WhiteCardsAvailable = new List<Card>();
+            UsedWhiteCards = new List<Card>();
+            BlackCardsAvailable = new List<Card>();
+            foreach(CardSet cs in loadedSets)
+            {
+                foreach(Card c in cs.Cards)
+                {
+                    if(c.Type == CardType.Black)
+                    {
+                        AllWhiteCards.Add(c);
+                    }
+                    else
+                    {
+                        AllBlackCards.Add(c);
+                    }
+                }
+            }
+            WhiteCardsAvailable.AddRange(AllWhiteCards);
+            BlackCardsAvailable.AddRange(AllBlackCards);
         }
     }
 }

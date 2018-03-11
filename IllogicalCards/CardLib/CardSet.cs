@@ -7,7 +7,7 @@ using Newtonsoft.Json.Schema;
 
 namespace CardLib
 {
-    class CardSet
+    public class CardSet
     {
         public string Name;
         public List<Card> Cards;
@@ -26,11 +26,11 @@ namespace CardLib
         ///     /optional/ "count": 100,
         /// }
         /// {
-        ///     "kind": "question",
+        ///     "kind": "black",
         ///     "text": "What's my secret power?"
         /// }
         /// {
-        ///     "kind": "answer",
+        ///     "kind": "white",
         ///     "text": "Eating dirt."
         /// }
         /// ...
@@ -104,6 +104,7 @@ namespace CardLib
                         Type = (CardType)curType
                     };
                     this.Cards.Add(c);
+                    inCard = false;
                     continue;
                 }
                 if (jr.TokenType == JsonToken.PropertyName)
@@ -119,11 +120,11 @@ namespace CardLib
                             {
                                 case "question":
                                 case "black":
-                                    curType = CardType.Question;
+                                    curType = CardType.White;
                                     break;
                                 case "answer":
                                 case "white":
-                                    curType = CardType.Answer;
+                                    curType = CardType.Black;
                                     break;
                                 default:
                                     throw new Exception("Card kind is not question/answer/white/black: " + k);
@@ -161,11 +162,11 @@ namespace CardLib
                 string k = "answer";
                 switch(c.Type)
                 {
-                    case CardType.Question:
-                        k = "question";
+                    case CardType.White:
+                        k = "white";
                         break;
-                    case CardType.Answer:
-                        k = "answer";
+                    case CardType.Black:
+                        k = "black";
                         break;
                 }
                 jw.WriteValue(k);

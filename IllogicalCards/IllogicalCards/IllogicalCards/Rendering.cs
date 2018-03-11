@@ -10,18 +10,30 @@ namespace IllogicalCards
     {
         static SKPaint cardWhitePaint = null;
         static SKPaint cardBlackPaint = null;
+        static SKPaint cardShadowPaint = null;
 
         public static void DrawCard(SKCanvas cv, Card c)
         {
-            if(cardWhitePaint == null)
+            if (cardWhitePaint == null)
             {
-                cardWhitePaint = new SKPaint();
-                cardWhitePaint.Color = SKColors.WhiteSmoke;
-                cardBlackPaint = new SKPaint();
-                cardBlackPaint.Color = SKColors.Black;
+                cardWhitePaint = new SKPaint
+                {
+                    Color = SKColors.WhiteSmoke,
+                    TextSize = 10
+                };
+                cardBlackPaint = new SKPaint
+                {
+                    Color = SKColors.Black,
+                    TextSize = 10
+                };
+                cardShadowPaint = new SKPaint
+                {
+                    Color = SKColors.Gray,
+                    BlendMode = SKBlendMode.Multiply
+                };
             }
             SKPaint bgPaint, fgPaint;
-            if(c.Type == CardType.Answer)
+            if (c.Type == CardType.Black)
             {
                 bgPaint = cardWhitePaint;
                 fgPaint = cardBlackPaint;
@@ -31,9 +43,23 @@ namespace IllogicalCards
                 bgPaint = cardBlackPaint;
                 fgPaint = cardWhitePaint;
             }
+            cv.DrawRoundRect(2 - 3, 2 - 3, 2 + 106, 2 + 106, 10, 10, cardShadowPaint);
             cv.DrawRoundRect(-3, -3, 106, 106, 10, 10, fgPaint);
-            cv.DrawRoundRect(0, 0, 100, 100, 10, 10, bgPaint);
-            cv.DrawText(c.Text, 8, 28, fgPaint);
+            cv.DrawRoundRect(0, 0, 100, 100, 7, 7, bgPaint);
+            int curChar = 0;
+            float curY = 8 + fgPaint.FontSpacing;
+            while (curChar < c.Text.Length)
+            {
+                float w;
+                int cnt = (int)fgPaint.BreakText(c.Text.Substring(curChar).Trim(), 90, out w);
+                bool breaking = (curChar + cnt) < c.Text.Length;
+                string text = c.Text.Substring(curChar, cnt).TrimStart();
+                if (!text.EndsWith(" ") && breaking)
+                    text += "-";
+                cv.DrawText(text, 8, curY, fgPaint);
+                curChar += cnt;
+                curY += fgPaint.FontSpacing;
+            }
         }
     }
 }

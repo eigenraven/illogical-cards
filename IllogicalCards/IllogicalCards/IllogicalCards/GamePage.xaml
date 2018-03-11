@@ -8,6 +8,7 @@
         <skia:SKCanvasView PaintSurface="CanvasView_PaintSurface">
             <skia:SKCanvasView.GestureRecognizers>
                 <TapGestureRecognizer />
+                <PanGestureRecognizer />
             </skia:SKCanvasView.GestureRecognizers>
         </skia:SKCanvasView>
     </ContentPage.Content>

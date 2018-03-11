@@ -3,46 +3,46 @@
   "version": 1
 }
 {
-  "kind": "question",
+  "kind": "black",
   "text": "Q1"
 }
 {
-  "kind": "question",
+  "kind": "black",
   "text": "Q2: __ + ___ = ____"
 }
 {
-  "kind": "question",
+  "kind": "black",
   "text": "_ Q3 _"
 }
 {
-  "kind": "question",
+  "kind": "black",
   "text": "Q4"
 }
 {
-  "kind": "question",
+  "kind": "black",
   "text": "Q5"
 }
 {
-  "kind": "answer",
+  "kind": "white",
   "text": "A1"
 }
 {
-  "kind": "answer",
+  "kind": "white",
   "text": "A2"
 }
 {
-  "kind": "answer",
+  "kind": "white",
   "text": "A3"
 }
 {
-  "kind": "answer",
+  "kind": "white",
   "text": "A4"
 }
 {
-  "kind": "answer",
+  "kind": "white",
   "text": "A5"
 }
 {
-  "kind": "answer",
+  "kind": "white",
   "text": "A6"
 }

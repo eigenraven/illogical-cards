@@ -18,7 +18,7 @@
             </TableView>
             <Button x:Name="JoinButton" Margin="8" HeightRequest="70" FontSize="Large" Text="Join game" />
             <Button x:Name="HostButton" Margin="8" HeightRequest="70" FontSize="Large" Text="Host game" Clicked="HostButton_Clicked" />
-            <Button x:Name="EditButton" Margin="8" HeightRequest="70" FontSize="Large" Text="Edit card sets" />
+            <Button x:Name="EditButton" Margin="8" HeightRequest="70" FontSize="Large" Text="Edit card sets" Clicked="EditButton_Clicked" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

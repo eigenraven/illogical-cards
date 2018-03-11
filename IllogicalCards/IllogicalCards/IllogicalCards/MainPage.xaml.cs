@@ -19,7 +19,13 @@ namespace IllogicalCards
 
         public void HostButton_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushModalAsync(new GamePage(), true);
+            string nick = this.NickEntry.Text;
+            Navigation.PushModalAsync(new GamePage(nick), true);
+        }
+
+        public void EditButton_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new EditorPage(), true);
         }
     }
 }

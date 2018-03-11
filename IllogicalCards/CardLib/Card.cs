@@ -2,12 +2,14 @@
 {
     public enum CardType
     {
-        Question,
-        Answer
+        White,
+        Black
     }
     
     public class Card
     {
+        public static Card BLANK_CARD = new Card() { Type = CardType.Black, Text = "" };
+
         /// <summary>
         /// Type of the card (black/white)
         /// </summary>
